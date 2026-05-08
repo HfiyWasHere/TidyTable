@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TidyTable</title>
+  <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ====== TOAST ====== -->
+<div class="toast" id="toast"></div>
+
+<!-- ====== LANDING ====== -->
+<div class="page active" id="page-landing">
+  <nav class="landing-nav">
+    <span class="logo">TidyTable</span>
+    <div class="landing-nav-btns">
+      <button class="btn-ghost" onclick="showPage('page-login')">Login</button>
+      <button class="btn-pill" onclick="showPage('page-signup')">Coba Sekarang!</button>
+    </div>
+  </nav>
+  <div class="landing-hero">
+    <h1>Atur tugas-tugas Anda dengan rapi menggunakan TidyTable!</h1>
+    <p>Aplikasi pembantu agar tugas-tugas anda tetap rapih.</p>
+    <div class="landing-cta">
+      <input type="email" placeholder="Email" id="landing-email"/>
+      <button class="btn-primary" onclick="landingSignup()">Sign up – Gratis!</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== LOGIN ====== -->
+<div class="page" id="page-login">
+  <div class="auth-card">
+    <h2>Sign In dengan E-mail</h2>
+    <input class="auth-input" type="email" placeholder="Email" id="login-email"/>
+    <input class="auth-input" type="password" placeholder="Password" id="login-pass"/>
+    <button class="auth-btn" onclick="doLogin()">Sign In</button>
+    <div class="auth-link">Belum memiliki akun? <a onclick="showPage('page-signup')">Sign up</a></div>
+  </div>
+</div>
+
+<!-- ====== SIGNUP ====== -->
+<div class="page" id="page-signup">
+  <div class="auth-card">
+    <h2>Sign Up dengan E-mail</h2>
+    <input class="auth-input" type="text" placeholder="Username" id="signup-name"/>
+    <input class="auth-input" type="email" placeholder="Email" id="signup-email"/>
+    <input class="auth-input" type="password" placeholder="Password" id="signup-pass"/>
+    <input class="auth-input" type="password" placeholder="Confirm Password" id="signup-pass2"/>
+    <button class="auth-btn" onclick="doSignup()">Sign Up</button>
+    <div class="auth-link">Sudah punya akun? <a onclick="showPage('page-login')">Sign in</a></div>
+  </div>
+</div>
+
+<!-- ====== DASHBOARD ====== -->
+<div class="page" id="page-dashboard">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="avatar" id="sidebar-avatar">U</div>
+        <span class="sidebar-username" id="sidebar-username">User</span>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-label">Menu</div>
+        <div class="sidebar-item active" onclick="showPage('page-dashboard')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </div>
+        <div class="sidebar-item" onclick="showPage('page-settings')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+        </div>
+        <div class="sidebar-label" style="margin-top:16px">Workspaces</div>
+        <div id="sidebar-ws-list" class="sidebar-ws-list"></div>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-item" onclick="openShareModal()">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share
+        </div>
+      </div>
+    </aside>
+    <main class="main-content">
+      <div class="page-title" id="dash-greeting">Selamat Datang, User!</div>
+      <div class="dashboard-grid">
+        <div class="ws-card">
+          <h3>Workspaces</h3>
+          <div class="ws-list" id="my-ws-list"><span class="ws-list-empty">Belum ada workspace</span></div>
+          <button class="btn-create-ws" onclick="openCreateWsModal()">+ Bikin Workspace Baru</button>
+        </div>
+        <div class="ws-card">
+          <h3>Workspace Tim</h3>
+          <div class="ws-list" id="team-ws-list"><span class="ws-list-empty">Belum ada workspace tim</span></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ====== WORKSPACE ====== -->
+<div class="page" id="page-workspace">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="avatar" id="ws-sidebar-avatar">U</div>
+        <span class="sidebar-username" id="ws-sidebar-username">User</span>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-item" onclick="showPage('page-dashboard')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </div>
+        <div class="sidebar-item" onclick="showPage('page-settings')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+        </div>
+        <div class="sidebar-label" style="margin-top:16px">Workspaces</div>
+        <div id="ws-sidebar-ws-list" class="sidebar-ws-list"></div>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-item" onclick="openShareModal()">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share
+        </div>
+        <div class="sidebar-item" onclick="showPage('page-settings')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+        </div>
+      </div>
+    </aside>
+    <main class="main-content">
+      <div class="workspace-header">
+        <h2 id="current-ws-name">Workspace 1</h2>
+        <button class="btn-secondary" onclick="openShareModal()">Share</button>
+        <button class="btn-secondary" onclick="viewReport()">Laporan Aktivitas</button>
+      </div>
+      <div class="lists-container" id="lists-container">
+        <button class="btn-new-list" onclick="openNewListModal()">+ Buat List Baru</button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ====== SETTINGS ====== -->
+<div class="page" id="page-settings">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="avatar" id="set-sidebar-avatar">U</div>
+        <span class="sidebar-username" id="set-sidebar-username">User</span>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-item" onclick="showPage('page-dashboard')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </div>
+        <div class="sidebar-item active" onclick="showPage('page-settings')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+        </div>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <div class="page-title">Settings</div>
+      <div class="settings-layout">
+        <div class="settings-nav-panel">
+          <div class="settings-nav-item active" onclick="switchSettingsTab(this,'tab-user')">Setting User</div>
+          <div class="settings-nav-item" onclick="switchSettingsTab(this,'tab-tim')">Setting Tim</div>
+          <div class="settings-nav-item" onclick="switchSettingsTab(this,'tab-app')">Setting Aplikasi</div>
+          <div class="settings-nav-item" onclick="switchSettingsTab(this,'tab-tema')">Tema</div>
+        </div>
+        <!-- User Tab -->
+        <div class="settings-panel" id="tab-user">
+          <h3>Setting User</h3>
+          <div class="settings-row">
+            <div>
+              <div class="field-group" style="margin-bottom:12px">
+                <label>Username</label>
+                <input class="field-input" id="set-username" placeholder="Username"/>
+              </div>
+              <div class="field-group" style="margin-bottom:12px">
+                <label>Email</label>
+                <input class="field-input" id="set-email" placeholder="Email"/>
+              </div>
+              <div class="field-group">
+                <label>Password Baru</label>
+                <input class="field-input" type="password" id="set-pass" placeholder="Password baru (opsional)"/>
+              </div>
+            </div>
+            <div></div>
+            <div>
+              <div class="avatar-big" id="set-avatar-big">U</div>
+              <div class="avatar-big-label">Click Untuk Ganti<br>Foto Profil</div>
+            </div>
+          </div>
+          <div class="settings-btns">
+            <button class="btn-save" onclick="saveSettings()">Simpan</button>
+            <button class="btn-back-plain" onclick="showPage('page-dashboard')">Kembali</button>
+            <button class="btn-logout" onclick="doLogout()">Logout</button>
+          </div>
+        </div>
+        <!-- Tim Tab -->
+        <div class="settings-panel" id="tab-tim" style="display:none">
+          <h3>Setting Tim</h3>
+          <p style="color:var(--gray-400);font-size:0.9rem">Kelola anggota workspace tim di sini. Fitur ini tersedia saat kamu membuka workspace yang di-share.</p>
+          <div id="tim-members-list" style="margin-top:18px"></div>
+        </div>
+        <!-- App Tab -->
+        <div class="settings-panel" id="tab-app" style="display:none">
+          <h3>Setting Aplikasi</h3>
+          <div class="field-group" style="margin-bottom:16px">
+            <label>Bahasa</label>
+            <select class="field-input"><option>Indonesia</option><option>English</option></select>
+          </div>
+          <div class="field-group">
+            <label>Auto-save</label>
+            <select class="field-input"><option>Aktif</option><option>Nonaktif</option></select>
+          </div>
+          <div class="settings-btns"><button class="btn-save">Simpan</button></div>
+        </div>
+        <!-- Tema Tab -->
+        <div class="settings-panel" id="tab-tema" style="display:none">
+          <h3>Tema</h3>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <div onclick="setTheme('default')" style="background:var(--navy);color:white;border-radius:10px;padding:20px 28px;cursor:pointer;font-weight:700;font-size:0.85rem">Navy (Default)</div>
+            <div onclick="setTheme('teal')" style="background:#0d9488;color:white;border-radius:10px;padding:20px 28px;cursor:pointer;font-weight:700;font-size:0.85rem">Teal</div>
+            <div onclick="setTheme('purple')" style="background:#6d28d9;color:white;border-radius:10px;padding:20px 28px;cursor:pointer;font-weight:700;font-size:0.85rem">Ungu</div>
+          </div>
+          <p style="margin-top:16px;font-size:0.8rem;color:var(--gray-400)">Tema baru akan diterapkan setelah reload halaman.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ====== REPORT ====== -->
+<div class="page" id="page-report">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="avatar" id="rpt-sidebar-avatar">U</div>
+        <span class="sidebar-username" id="rpt-sidebar-username">User</span>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-item" onclick="showPage('page-dashboard')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </div>
+        <div class="sidebar-item" onclick="openCurrentWs()">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Workspace
+        </div>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <div class="page-title">Laporan Aktivitas</div>
+      <div class="report-card">
+        <div class="report-title" id="report-title">Laporan Aktivitas Workspace</div>
+        <div class="report-grid">
+          <div class="report-list-col" id="report-todo-col">
+            <h4>To Do</h4>
+          </div>
+          <div class="report-list-col" id="report-done-col">
+            <h4>Done</h4>
+          </div>
+          <div class="report-contributors">
+            <h4>Kontributor</h4>
+            <div id="report-contributors-list"></div>
+          </div>
+        </div>
+        <div class="report-btns">
+          <button class="btn-secondary" onclick="openCurrentWs()">Kembali ke Workspace</button>
+          <button class="btn-primary" onclick="exportPDF()">Ekspor ke PDF</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ====== MODALS ====== -->
+
+<!-- Create Workspace -->
+<div class="modal-overlay" id="modal-create-ws">
+  <div class="modal">
+    <h3>Buat Workspace Baru</h3>
+    <input class="field-input" id="new-ws-name" placeholder="Nama Workspace" style="width:100%;margin-bottom:12px"/>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('modal-create-ws')">Batal</button>
+      <button class="btn-primary" onclick="createWorkspace()">Buat</button>
+    </div>
+  </div>
+</div>
+
+<!-- New List -->
+<div class="modal-overlay" id="modal-new-list">
+  <div class="modal">
+    <h3>Buat List Baru</h3>
+    <input class="field-input" id="new-list-name" placeholder="Nama List (contoh: To Do, In Progress)" style="width:100%;margin-bottom:12px"/>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('modal-new-list')">Batal</button>
+      <button class="btn-primary" onclick="createList()">Buat</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Task -->
+<div class="modal-overlay" id="modal-task">
+  <div class="modal">
+    <h3 id="modal-task-title">Buat Tugas Baru</h3>
+    <input class="field-input" id="task-name" placeholder="Nama Tugas" style="width:100%;margin-bottom:10px"/>
+    <input class="field-input" id="task-start" type="date" style="width:100%;margin-bottom:10px"/>
+    <input class="field-input" id="task-deadline" type="date" style="width:100%;margin-bottom:10px"/>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('modal-task')">Batal</button>
+      <button class="btn-primary" onclick="saveTask()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Share Workspace -->
+<div class="modal-overlay" id="modal-share">
+  <div class="modal">
+    <h3>Share Workspace</h3>
+    <div class="modal-section-title">Tambahkan anggota:</div>
+    <div style="display:flex;gap:8px;margin-bottom:14px">
+      <input class="field-input" id="share-email-input" placeholder="Email pengguna" style="flex:1"/>
+      <select class="field-input" id="share-role" style="width:auto">
+        <option value="Editor">Editor</option>
+        <option value="Viewer">Viewer</option>
+        <option value="Admin">Admin</option>
+      </select>
+    </div>
+    <button class="btn-primary" onclick="addSharedUser()" style="width:100%;margin-bottom:16px">Tambah User</button>
+    <div class="modal-section-title">Anggota saat ini:</div>
+    <div class="share-user-list" id="share-user-list"></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('modal-share')">Tutup</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
